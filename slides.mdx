@@ -1,0 +1,106 @@
+---
+title: LT タイトル
+theme: moonlit
+addons:
+  - mermaid
+transition: fade
+exportFilename: lt-slide
+---
+
+# LT タイトル
+
+2026.11.03
+
+---
+layout: default
+title: 自己紹介
+notes: |
+  名前、職種、今日の話を一行で。
+---
+
+# 自己紹介
+
+- 名前
+- 職種
+- 普段触っているもの: TypeScript / React
+
+---
+title: 持ち帰り
+---
+
+# 持って帰ってほしいこと
+
+<Callout title="一言">ここに結論を先に書く</Callout>
+
+---
+title: 背景
+---
+
+# 背景
+
+なぜその話をするのか。3行までに収める。
+
+- 困っていたこと
+- 試したこと
+- 今日見せる範囲
+
+---
+title: コード
+---
+
+# やったこと
+
+```ts
+type Talk = {
+  minutes: 5 | 10
+  takeaway: string
+}
+
+const talk: Talk = {
+  minutes: 5,
+  takeaway: '結論を先に置く',
+}
+```
+
+コードはフェンスに言語名を付けるとハイライトされる。
+
+---
+title: React コンポーネント
+---
+
+import { PointList } from './components/PointList'
+
+# React で足すとき
+
+本文は Markdown のまま、動きや繰り返しが必要な部分だけ `.tsx` にする。
+
+<PointList
+  points={[
+    { title: '本文', body: 'slides.mdx に書く' },
+    { title: '部品', body: 'components/*.tsx に書く' },
+    { title: '配布', body: 'npm run export で PDF にする' },
+  ]}
+/>
+
+---
+title: 流れ
+---
+
+# 発表の流れ
+
+<MermaidDiagram>{`flowchart LR
+  Cover[表紙] --> Takeaway[持ち帰り]
+  Takeaway --> Demo[実例]
+  Demo --> End[まとめ]
+`}</MermaidDiagram>
+
+---
+layout: center
+title: まとめ
+notes: |
+  結論をもう一度言って終わる。
+---
+
+# まとめ
+
+結論をもう一度。

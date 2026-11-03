@@ -1,0 +1,22 @@
+{
+  "name": "lt-slide",
+  "private": true,
+  "scripts": {
+    "dev": "slidev-react dev",
+    "build": "slidev-react build",
+    "export": "node scripts/export-pdf.mjs",
+    "lint": "slidev-react lint --strict"
+  },
+  "dependencies": {
+    "@mdx-js/react": "3.1.1",
+    "@slidev-react/cli": "0.5.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1"
+  }
+}

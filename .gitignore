@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.generated/
+.slidev-react/
+output/
+*.pdf
+.DS_Store
