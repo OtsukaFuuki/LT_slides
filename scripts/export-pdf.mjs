@@ -1,13 +1,23 @@
 import { spawn } from 'node:child_process'
+import { existsSync } from 'node:fs'
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import { chromium } from '@playwright/test'
 
+const slidesFile = process.argv[2]
 const host = '127.0.0.1'
-const port = 4173
+const port = slidesFile ? 4174 : 4173
 const baseUrl = `http://${host}:${port}/`
 const printUrl = `${baseUrl}?export=print`
-const pdfPath = path.resolve('output/export/lt-slide.pdf')
+const pdfName = slidesFile
+  ? `${path.basename(slidesFile, path.extname(slidesFile))}.pdf`
+  : 'lt-slide.pdf'
+const pdfPath = path.resolve('output/export', pdfName)
+
+if (slidesFile && !existsSync(slidesFile)) {
+  console.error(`ファイルが見つかりません: ${slidesFile}`)
+  process.exit(1)
+}
 
 async function isReady() {
   try {
@@ -30,14 +40,13 @@ async function waitUntilReady(timeoutMs) {
   throw new Error(`${baseUrl} が ${timeoutMs}ms 以内に応答しませんでした。`)
 }
 
-const alreadyRunning = await isReady()
+const serverArgs = ['dev', '--host', host, '--port', String(port), '--strictPort']
+if (slidesFile) serverArgs.push(slidesFile)
+
+const alreadyRunning = slidesFile ? false : await isReady()
 const server = alreadyRunning
   ? null
-  : spawn(
-      path.resolve('node_modules/.bin/slidev-react'),
-      ['dev', '--host', host, '--port', String(port), '--strictPort'],
-      { stdio: 'inherit' },
-    )
+  : spawn(path.resolve('node_modules/.bin/slidev-react'), serverArgs, { stdio: 'inherit' })
 
 try {
   if (server) await waitUntilReady(120_000)
